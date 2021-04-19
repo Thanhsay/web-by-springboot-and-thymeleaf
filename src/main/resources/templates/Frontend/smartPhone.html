@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>pomato</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" th:href="@{/User/css/bootstrap.min.css}">
+    <!-- style css -->
+    <link rel="stylesheet" th:href="@{/User/css/style.css}">
+    <!-- Responsive-->
+    <link rel="stylesheet" th:href="@{/User/css/responsive.css}">
+    <!-- fevicon -->
+    <link rel="icon" th:href="@{/User/images/fevicon.png}" type="image/gif"/>
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" th:href="@{/User/css/jquery.mCustomScrollbar.min.css}">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/User/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/User/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+          media="screen">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <style>
+        .brand_all {
+            margin: 15px 15px 15px 75px;
+            height: 50px;
+            align-content: center;
+            display: flex;
+        }
+
+        .brand_name {
+            width: 15%;
+            text-align: center;
+            justify-content: center;
+            align-content: center;
+            margin: 5px;
+            position: relative;
+            overflow: hidden;
+            float: left;
+            border: 1px solid deepskyblue;
+            display: flex;
+            padding-top: 5px;
+        }
+
+        .pageAll {
+            align-content: center;
+            justify-content: center;
+            display: flex;
+            margin: 25px;
+        }
+
+        .pagePosi {
+            width: 25px;
+            margin-right: 15px;
+        }
+
+        .pageNumber, .pagePosi {
+            height: 20px;
+            float: left;
+            position: relative;
+            text-align: center;
+        }
+
+        .pageNumber {
+            border: 1px solid greenyellow;
+            width: 15px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<!-- body -->
+
+<body class="main-layout ">
+<!-- loader  -->
+<div class="loader_bg">
+    <div class="loader"><img th:src="@{/User/images/loading.gif}" alt="#"/></div>
+</div>
+<!-- end loader -->
+<!-- header -->
+<header th:replace="Frontend/header.html">
+    <!-- header inner -->
+
+    <!-- end header inner -->
+</header>
+<!-- end header -->
+
+<!-- brand -->
+<div class="brand" xmlns:th="http://www.thymeleaf.org">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage">
+                    <h2>SMART PHONES</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="brand_all">
+        <div th:each="b: ${brandFindAll}" class="brand_name">
+            <span><a th:href="@{/brand(id=${b.getBrand_id()}, name=${b.getBrand_name()})}">
+                <div th:text="*{b.getBrand_name()}"></div>
+            </a></span>
+        </div>
+    </div>
+    <div class="brand-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 margin" th:each="m:${ModelFindAll}">
+                    <div class="brand_box">
+                        <img th:src="*{m.getModel_image()}" alt="img"/>
+                        <h3><strong class="red" th:text="${#numbers.formatCurrency(m.getModelPrice())}"></strong></h3>
+                        <!--<div><span th:text="*{m.getModel_name()}"></span></div>-->
+                        <span><a th:href="@{/detail(id=${m.getModel_id()})}"><div th:text="*{m.getModel_name()}"></div></a></span>
+                        <div th:if="${m.getModel_status()==1}">Status: Stocking</div>
+                        <div th:if="${m.getModel_status()==0}">Status: Out of stock</div>
+                        <i><img th:src="@{/User/images/star.png}"/></i>
+                        <i><img th:src="@{/User/images/star.png}"/></i>
+                        <i><img th:src="@{/User/images/star.png}"/></i>
+                        <i><img th:src="@{/User/images/star.png}"/></i>
+                        <i><img th:src="@{/User/images/star.png}"/></i>
+                    </div>
+                </div>
+                <!--
+                <div class="col-md-12">
+                    <a class="read-more">See More</a>
+                </div>
+                -->
+            </div>
+            <div class="pageAll">
+                <div class="pagePosi">
+                    <strong>Page: </strong>
+                </div>
+                <div class="pageNumber" th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
+                    <a th:href="@{/smartphones(page=${pageNumber}, offset=${offset})}"
+                       th:text="${pageNumber}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end brand -->
+
+<!-- footer -->
+<footer th:replace="Frontend/footer.html">
+
+</footer>
+<!-- end footer -->
+<!-- Javascript files-->
+<script th:src="@{/User/js/jquery.min.js}"></script>
+<script th:src="@{/User/js/popper.min.js}"></script>
+<script th:src="@{/User/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/User/js/jquery-3.0.0.min.js}"></script>
+<script th:src="@{/User/js/plugin.js}"></script>
+<!-- sidebar -->
+<script th:src="@{/User/js/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script th:src="@{/User/js/custom.js}"></script>
+<!-- javascript -->
+<script th:src="@{/User/js/owl.carousel.js}"></script>
+<script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".fancybox").fancybox({
+            openEffect: "none",
+            closeEffect: "none"
+        });
+
+        $(".zoom").hover(function () {
+
+            $(this).addClass('transition');
+        }, function () {
+
+            $(this).removeClass('transition');
+        });
+    });
+</script>
+</body>
+
+</html>

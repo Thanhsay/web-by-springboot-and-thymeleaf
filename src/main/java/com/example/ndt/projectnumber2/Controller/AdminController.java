@@ -76,19 +76,16 @@ public class AdminController implements IAdmin {
 
     @Override
     public String list() {
-        int test = 3;
         return null;
     }
 
     @Override
     public String update() {
-        int test = 2;
         return null;
     }
 
     @Override
     public String delete() {
-        int test = 1;
         return null;
     }
 }

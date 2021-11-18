@@ -104,6 +104,7 @@ public class HomeController {
         model.addAttribute("ModelFindAll", modellPage);
         Long totalModel = userService.modelTotal();
         Long totalPages;
+        int test = 5;
         if(totalModel%offset==0){
             totalPages = totalModel/offset;
         }else

@@ -86,6 +86,7 @@ public class AdminController implements IAdmin {
 
     @Override
     public String delete() {
+        int test = 1;
         return null;
     }
 }

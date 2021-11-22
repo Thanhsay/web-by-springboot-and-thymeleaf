@@ -76,6 +76,7 @@ public class AdminController implements IAdmin {
 
     @Override
     public String list() {
+        String test = "hi";
         return null;
     }
 
